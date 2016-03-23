@@ -127,3 +127,20 @@ body {
 /**
  * App code
  */
+.mainContainer {
+    text-align: center;
+        p {
+            font-size: 2em;
+            opacity: .8;
+        }
+        button {
+            border-radius: 5%;
+            border: 1px solid #ff5666;
+            color: white;
+            background: #ff5666;
+            margin: 2%;
+            padding: 1%;
+        }
+}
+
+

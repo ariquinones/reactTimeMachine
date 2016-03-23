@@ -39,7 +39,73 @@ import React, {Component} from 'react'
 function app() {
     // start app
     // new Router()
-    DOM.render(<p>test 2</p>, document.querySelector('.container'))
+    var AppView = React.createClass({
+
+    	_subtractYear: function () {
+    		if (this.state.ticking === false) {
+    			var toThePast = function () {
+    				this.setState({
+    					ticking: true,
+    					currentYear: this.state.currentYear - 1,
+    					pastButton: "LET'S STOP HERE",
+    				})
+    			}
+    			var boundToThePast = toThePast.bind(this)
+    			this.intervalId = setInterval(boundToThePast, 500)
+    		}
+    		else {
+    			clearInterval(this.intervalId)
+    			this.setState({
+    				ticking: false,
+    				pastButton: "TO THE PAST!"
+    			})
+    		}
+    	},
+    	_addYear: function () {
+    		if (this.state.ticking === false) {
+    			var toTheFuture = function () {
+    				this.setState({
+    					ticking: true,
+    					currentYear: this.state.currentYear + 1,
+    					futureButton: "LET'S STOP HERE",
+    				})
+    			}
+    			var boundToTheFuture = toTheFuture.bind(this)
+    			this.intervalId = setInterval(boundToTheFuture, 500)
+    		}
+    		else {
+    			clearInterval(this.intervalId)
+    			this.setState({
+    				ticking: false,
+    				futureButton: "TO THE FUTURE!",
+    				pastButton: "TO THE PAST!"
+    			})
+    		}
+    	},
+    	getInitialState: function() {
+    		var yr = parseInt(new Date().getFullYear())
+       		 return {
+        		ticking: false,
+         		currentYear: yr,
+         		futureButton: "TO THE FUTURE!",
+         		pastButton: "TO THE PAST!"
+
+        	}
+      	},
+    	render: function() {
+    		console.log(this)
+    		return (
+    				<div className="mainContainer">
+    					<p>{this.state.currentYear} </p>
+    					<button onClick={this._subtractYear}>{this.state.pastButton}</button>
+    					<button onClick={this._addYear}>{this.state.futureButton}</button>
+    				</div>
+    			)
+    	}
+    })
+
+
+    DOM.render(<AppView />, document.querySelector('.container'))
 }
 
 app()
